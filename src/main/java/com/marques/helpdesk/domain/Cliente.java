@@ -1,5 +1,6 @@
 package com.marques.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marques.helpdesk.domain.enums.Perfil;
 
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import java.util.List;
 public class Cliente extends Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Chamado> chamados = new ArrayList<>();
 
