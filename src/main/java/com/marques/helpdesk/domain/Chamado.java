@@ -1,34 +1,52 @@
 package com.marques.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marques.helpdesk.domain.enums.Prioridade;
 import com.marques.helpdesk.domain.enums.Status;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Chamado {
+@Entity
+public class Chamado implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataAbertura = LocalDate.now();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento = LocalDate.now();
+
     private Prioridade prioridade;
     private Status status;
     private String titulo;
     private String observacoes;
 
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     public Chamado() {
         super();
     }
 
-    public Chamado(Integer id, Prioridade prioridade, Status status, String observacoes, String titulo, Cliente cliente, Tecnico tecnico) {
+    public Chamado(Integer id, Prioridade prioridade, Status status, String observacoes, String titulo,  Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.prioridade = prioridade;
         this.status = status;
         this.observacoes = observacoes;
         this.titulo = titulo;
-        this.cliente = cliente;
         this.tecnico = tecnico;
+        this.cliente = cliente;
     }
 
     @Override
