@@ -4,6 +4,7 @@ package com.marques.helpdesk.services;
 import com.marques.helpdesk.domain.Pessoa;
 import com.marques.helpdesk.domain.Tecnico;
 import com.marques.helpdesk.domain.dtos.TecnicoDTO;
+import com.marques.helpdesk.repositories.ChamadoRepository;
 import com.marques.helpdesk.repositories.PessoaRepository;
 import com.marques.helpdesk.repositories.TecnicoRepository;
 import com.marques.helpdesk.services.exceptions.DataIntegrityViolationException;
@@ -23,6 +24,10 @@ public class TecnicoService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private TecnicoRepository tecnicoRepository;
+    @Autowired
+    private ChamadoRepository chamadoRepository;
 
     public Tecnico findById(Integer id) {
         Optional<Tecnico> obj = repository.findById(id);
@@ -44,12 +49,21 @@ public class TecnicoService {
 
     public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
         objDTO.setId(id);
-
         Tecnico oldObj = findById(id);
         validaPorCpfEEmail(objDTO);
         oldObj = new Tecnico(objDTO);
         return repository.save(oldObj);
     }
+
+    public void delete(Integer id) {
+            Tecnico obj = findById(id);
+            if (obj.getChamados().size() > 0){
+                throw new DataIntegrityViolationException("Técnico possui ordens de serviço e nao pode ser deletado!");
+            }
+            repository.deleteById(id);
+    }
+
+
 
     private void validaPorCpfEEmail(TecnicoDTO objDTO) {
         Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
@@ -62,6 +76,7 @@ public class TecnicoService {
             throw new DataIntegrityViolationException("E-mail já Cadastrado no sistema!");
         }
     }
+
 
 
 }
