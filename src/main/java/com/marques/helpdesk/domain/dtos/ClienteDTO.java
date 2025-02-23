@@ -3,6 +3,7 @@ package com.marques.helpdesk.domain.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marques.helpdesk.domain.Cliente;
 import com.marques.helpdesk.domain.enums.Perfil;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class ClienteDTO implements Serializable {
     protected String nome;
 
     @NotNull(message = "O campo CPF é obrigatório")
+    @CPF
     protected String cpf;
 
     @NotNull(message = "O campo E-MAIL é obrigatório")

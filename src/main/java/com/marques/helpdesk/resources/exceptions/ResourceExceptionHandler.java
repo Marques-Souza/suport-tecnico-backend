@@ -1,6 +1,5 @@
 package com.marques.helpdesk.resources.exceptions;
 
-
 import com.marques.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.marques.helpdesk.services.exceptions.ObjectnotFoundException;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,12 @@ public class ResourceExceptionHandler {
                 "Validation Error", "Erro na validação dos campos", request.getRequestURI());
 
         for (FieldError x : ex.getBindingResult().getFieldErrors()) {
-            errors.addError(x.getField(), x.getDefaultMessage());
+            // Personalizando a mensagem de erro para o campo CPF
+            if (x.getField().equals("cpf")) {
+                errors.addError(x.getField(), "O número do CPF fornecido é inválido. Por favor, tente novamente.");
+            } else {
+                errors.addError(x.getField(), x.getDefaultMessage());
+            }
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);

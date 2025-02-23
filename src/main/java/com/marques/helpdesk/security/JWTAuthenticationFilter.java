@@ -47,11 +47,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String username = ((UserSS) authResult.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
+
+        // Configurações CORS
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, enctype, Location");
-        response.setHeader("Authorization", "Bearer " + token);
 
+        // Expondo o cabeçalho Authorization!
+        response.setHeader("Access-Control-Expose-Headers", "Authorization");
+
+        // Adicionando o token no cabeçalho
+        response.setHeader("Authorization", "Bearer " + token);
     }
 
     @Override

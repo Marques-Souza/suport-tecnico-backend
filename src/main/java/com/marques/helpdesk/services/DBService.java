@@ -33,7 +33,7 @@ public class DBService {
 
     public void instanciaDB(){
 
-        Tecnico tec1 = new Tecnico(null, "Marques Souza", "03589646101", "admin@admin.com",encoder.encode("123"));
+        Tecnico tec1 = new Tecnico(null, "admin admin ", "47189114009", "admin@admin.com",encoder.encode("123"));
         tec1.addPerfil(Perfil.ADMIN);
 
         Tecnico tec2 = new Tecnico(null, "Caio Souza", "83085270000", "caio@email.com",encoder.encode("123"));
@@ -42,10 +42,10 @@ public class DBService {
         Tecnico tec3 = new Tecnico(null, "Cleber Souza", "68406569000", "cleber@email.com",encoder.encode("123"));
         tec3.addPerfil(Perfil.TECNICO);
 
-        Tecnico tec4 = new Tecnico(null, "Yore Souza", "85842700000", "yore@email.com",encoder.encode("123"));
+        Tecnico tec4 = new Tecnico(null, "chaves", "85842700000", "chaves@email.com",encoder.encode("123"));
         tec4.addPerfil(Perfil.TECNICO);
 
-        Cliente cli1 = new Cliente(null, "Samantha Soares", "72888334100", "samantha@email.com",encoder.encode("123"));
+        Cliente cli1 = new Cliente(null, "Samantha Soares", "60392554046", "samantha@email.com",encoder.encode("123"));
 
         Cliente cli2 = new Cliente(null, "Karol Soares", "15320786093", "karol@email.com",encoder.encode("123"));
 
@@ -55,7 +55,7 @@ public class DBService {
 
         Chamado c1 = new Chamado(null, Prioridade.MEDIA, Status.ABERTO, "Chamando 01", "Primeiro chamado", tec1, cli1);
 
-        Chamado c2 = new Chamado(null, Prioridade.BAIXA, Status.ABERTO, "Chamando 02", "Segundo chamado", tec2, cli2);
+        Chamado c2 = new Chamado(null, Prioridade.BAIXA, Status.ANDAMENTO, "Chamando 02", "Segundo chamado", tec2, cli2);
 
         Chamado c3 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Chamando 03", "Terceiro chamado", tec1, cli2);
 
